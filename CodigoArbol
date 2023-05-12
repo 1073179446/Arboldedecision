@@ -1,0 +1,19 @@
+# Importar las bibliotecas necesarias
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+#Eliminar filas con valores faltantes
+df.dropna(inplace=True)
+# Seleccionar las columnas de caracteristicas y la columna de etiquetas
+X = df.iloc[:, :-1]
+y = df.iloc[:, -1]
+#Convertir variables categoricas en variables numericas
+X = pd.get_dummies(X)
+# Dividir el conjunto de datos en conjunto de entrenamiento y prueba 
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+#Crear un modelo de arbol de desicion y entrenarlo con el conjunto de datos de entrenamiento
+clf = DecisionTreeClassifier()
+clf.fit(X_train, y_train)
+#Evaluar el modelo con el conjunto de datos de prueba
+score = clf.score(X_test, y_test)
+print("Accuracy: %.2f%%" % (score * 100.0))
